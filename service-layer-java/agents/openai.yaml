@@ -1,0 +1,16 @@
+interface:
+  display_name: "Service Layer (Business Logic)"
+  short_description: "Design and orchestration of business use cases and transactional logic."
+  icon_large: "./assets/logo-service.png"
+
+  default_prompt: >
+    Help me design or refactor the service layer of a Java application.
+    Focus on business use cases, transactional boundaries, and orchestration between repositories and external services.
+    Ensure clean separation from controllers and persistence layers, and avoid leaking infrastructure concerns into business logic.
+
+  scope: "Business logic layer only - no API or repository implementation details"
+
+  related_skills:
+    - api-design
+    - db-persistence-sql
+    - dev-app-java
