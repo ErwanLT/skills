@@ -1,0 +1,5 @@
+interface:
+  display_name: "Dev App Java"
+  short_description: "Développement d'apps Java + bonnes pratiques."
+  icon_large: "./assets/logo-java-coffee-cup.png"
+  default_prompt: "Aide-moi à créer ou améliorer une application Java (classique, Spring Boot, Quarkus) avec bonnes pratiques: Javadoc, tests unitaires, design patterns et OpenAPI."
