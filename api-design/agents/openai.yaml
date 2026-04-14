@@ -1,0 +1,5 @@
+interface:
+  display_name: "API Design & Documentation"
+  short_description: "REST standards, OpenAPI & Problem Details."
+  icon_large: "./assets/logo-api.png"
+  default_prompt: "Help me design or document my RESTful API, focusing on clean Controller implementation, OpenAPI documentation, and standardized error handling (Problem Details)."

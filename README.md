@@ -9,3 +9,6 @@ End-to-end Java application development (creation, structuring, refactoring, qua
 
 ### [DB Persistence & SQL](./db-persistence-sql/SKILL.md)
 Design and optimization of the persistence layer (PostgreSQL, JPA/Hibernate, Migrations). Focus on the 'Repository' part of the Controller/Service/Repository pattern, ensuring data integrity, high performance, and clean migrations.
+
+### [API Design & Documentation](./api-design/SKILL.md)
+Design and implementation of robust, clear, and documented RESTful APIs. Focus on the 'Controller' part of the Controller/Service/Repository pattern, ensuring consistent responses, proper HTTP usage, and comprehensive OpenAPI documentation.
