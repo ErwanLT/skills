@@ -2,4 +2,4 @@ interface:
   display_name: "Dev App Java"
   short_description: "Java app development + best practices."
   icon_large: "./assets/logo-java-coffee-cup.png"
-  default_prompt: "Help me create or improve a Java application (Vanilla, Spring Boot, Quarkus, Struts) with best practices: Javadoc, unit tests, design patterns, and OpenAPI."
+  default_prompt: "Help me create or improve a Java application (Vanilla, Spring Boot, Quarkus, Struts) with best practices: Modern Java (17/21), Build systems (Maven/Gradle), Structured Logging, Javadoc, tests, and design patterns."

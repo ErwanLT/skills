@@ -7,7 +7,7 @@ description: "End-to-end Java application development (creation, structuring, re
 
 ## Overview
 
-Apply cross-cutting Java best practices (Javadoc, unit tests, design patterns) on existing or new code, regardless of the framework.
+Apply cross-cutting Java best practices (Javadoc, unit tests, design patterns) on existing or new code, with **Java 21** as the baseline version.
 
 ## Workflow
 
@@ -64,6 +64,9 @@ Apply cross-cutting Java best practices (Javadoc, unit tests, design patterns) o
 ## References
 
 - For detailed rules, examples, and checklists, read `references/java-best-practices.md`.
+- For Modern Java (17/21) features, read `references/modern-java.md`.
+- For Build systems and Logging best practices, read `references/build-and-logs.md`.
 - If the project is Spring Boot, read `references/spring-boot.md`.
 - If the project is Quarkus, read `references/quarkus.md`.
- is Struts, read `references/struts.md`.
+- If the project is Struts, read `references/struts.md`.
+
