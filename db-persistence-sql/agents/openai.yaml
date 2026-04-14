@@ -1,0 +1,5 @@
+interface:
+  display_name: "DB Persistence & SQL"
+  short_description: "Optimization of PostgreSQL, Hibernate & Migrations."
+  icon_large: "./assets/logo-db.png"
+  default_prompt: "Help me design or optimize my database layer (PostgreSQL, JPA/Hibernate, Liquibase/Flyway) focusing on performance, clean Repository mappings, and robust migrations."
