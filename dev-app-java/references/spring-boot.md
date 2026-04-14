@@ -12,155 +12,155 @@
 
 ## Testing
 
-- Tester les couches en isolation :
-  - `@WebMvcTest` pour les contrôleurs MVC
-  - `@DataJpaTest` pour la couche JPA
-  - Tests unitaires purs pour les services
+- Test layers in isolation:
+  - `@WebMvcTest` for MVC controllers
+  - `@DataJpaTest` for the JPA layer
+  - Pure unit tests for services
 
-- Utiliser `@SpringBootTest` uniquement pour les tests d’intégration complets
-- Éviter d’en faire le choix par défaut (coût élevé)
+- Use `@SpringBootTest` only for full integration tests
+- Avoid making it the default choice (high cost)
 
-- Utiliser **Testcontainers** pour les dépendances externes (DB, Kafka)
-- Configurer des profils dédiés (`@ActiveProfiles("test")`)
+- Use **Testcontainers** for external dependencies (DB, Kafka)
+- Configure dedicated profiles (`@ActiveProfiles("test")`)
 
-- Séparer clairement :
-  - tests unitaires (rapides)
-  - tests d’intégration (plus lents)
+- Clearly separate:
+  - unit tests (fast)
+  - integration tests (slower)
 
-- Structurer en **Given / When / Then**
-- Tester le comportement, pas l’implémentation
+- Structure in **Given / When / Then**
+- Test behavior, not implementation
 
-**Quand agir :**
-- Tests trop lents ou instables
-- Usage excessif de `@SpringBootTest`
-- Faible couverture des services
+**When to act:**
+- Tests are too slow or unstable
+- Excessive use of `@SpringBootTest`
+- Low service coverage
 
 ---
 
 ## Architecture & Layers
 
-- Séparer clairement :
-  - **Controller** → exposition HTTP
-  - **Service** → logique métier
-  - **Repository** → accès aux données
+- Clearly separate:
+  - **Controller** → HTTP exposure
+  - **Service** → business logic
+  - **Repository** → data access
 
-- Les contrôleurs doivent rester **fins**
-- La logique métier appartient aux services
-- Les repositories ne contiennent que de la logique d’accès aux données
+- Controllers should remain **thin**
+- Business logic belongs in services
+- Repositories should only contain data access logic
 
-- Ne pas mélanger logique métier et technique
+- Do not mix business and technical logic
 
-- Favoriser des services cohérents (une responsabilité claire)
+- Favor coherent services (one clear responsibility)
 
-**Quand agir :**
-- Logique métier dans les contrôleurs
-- Services trop volumineux
-- Couplage fort entre couches
+**When to act:**
+- Business logic in controllers
+- Overly large services
+- Strong coupling between layers
 
 ---
 
 ## Common Patterns
 
-- Injection par **constructeur** (recommandé)
-  - Favorise l’immuabilité et la testabilité
+- **Constructor** injection (recommended)
+  - Promotes immutability and testability
 
-- Utiliser des **DTOs** pour l’exposition API
-- Mapper explicitement DTO ↔ domaine
+- Use **DTOs** for API exposure
+- Explicitly map DTO ↔ domain
 
-- Préférer la composition à l’héritage
+- Prefer composition over inheritance
 
-- Patterns fréquents :
-  - **Strategy** : variantes métier
-  - **Factory** : création complexe
-  - **Adapter** : intégration externe
+- Common patterns:
+  - **Strategy**: business variants
+  - **Factory**: complex creation
+  - **Adapter**: external integration
 
-- Utiliser `@Configuration` pour centraliser les configurations
+- Use `@Configuration` to centralize configurations
 
-**Quand agir :**
-- Code difficile à tester
-- Duplication de logique
-- Couplage avec des API externes
+**When to act:**
+- Code is difficult to test
+- Logic duplication
+- Coupling with external APIs
 
 ---
 
 ## Transactions & Persistence
 
-- Gérer les transactions au niveau **service** (`@Transactional`)
-- Ne jamais gérer de transaction dans un contrôleur
+- Manage transactions at the **service** level (`@Transactional`)
+- Never manage transactions in a controller
 
-- Être explicite sur :
-  - lecture seule (`readOnly = true`)
-  - propagation si nécessaire
+- Be explicit about:
+  - read-only (`readOnly = true`)
+  - propagation if necessary
 
-- Éviter :
-  - logique métier dans les entités
-  - accès direct au repository depuis le contrôleur
+- Avoid:
+  - business logic in entities
+  - direct repository access from the controller
 
-- Surveiller :
-  - chargement paresseux (lazy loading)
-  - problèmes de N+1
+- Monitor:
+  - lazy loading
+  - N+1 issues
 
-**Quand agir :**
-- Bugs liés aux transactions
-- Performances dégradées côté base
-- Accès aux données mal contrôlé
+**When to act:**
+- Transaction-related bugs
+- Degraded database performance
+- Poorly controlled data access
 
 ---
 
 ## API & OpenAPI
 
-- Documenter systématiquement avec OpenAPI :
+- Systematically document with OpenAPI:
   - `@Operation`
   - `@ApiResponse`
   - `@Parameter`
 
-- Documenter :
-  - cas nominal
-  - cas d’erreur
+- Document:
+  - nominal case
+  - error cases
 
-- Ne pas exposer directement les entités JPA
-- Utiliser des DTOs dédiés
+- Do not directly expose JPA entities
+- Use dedicated DTOs
 
-- Standardiser les erreurs (ex: `ProblemDetail`)
+- Standardize errors (e.g., `ProblemDetail`)
 
-**Quand agir :**
-- API difficile à comprendre
-- Contrats implicites
-- Documentation absente
+**When to act:**
+- API is difficult to understand
+- Implicit contracts
+- Documentation is missing
 
 ---
 
 ## Review Checklist
 
 ### Tests
-- Tests unitaires présents pour les services
-- Usage de `@SpringBootTest` justifié
-- Tests par couche (Web / JPA / Service)
+- Unit tests present for services
+- `@SpringBootTest` usage is justified
+- Layered tests (Web / JPA / Service)
 
 ### Architecture
-- Contrôleurs fins
-- Services bien découpés
-- Repositories isolés
+- Thin controllers
+- Well-partitioned services
+- Isolated repositories
 
 ### Code
-- Injection par constructeur
-- Nommage explicite
-- Méthodes lisibles
+- Constructor injection
+- Explicit naming
+- Readable methods
 
 ### Persistence
-- Transactions au bon niveau
-- Pas de logique métier dans les entités
-- Pas d’accès direct DB depuis les contrôleurs
+- Transactions at the right level
+- No business logic in entities
+- No direct DB access from controllers
 
 ### API
-- OpenAPI complet
-- DTO utilisés
-- Erreurs documentées
+- Complete OpenAPI
+- DTOs used
+- Documented errors
 
 ### Global
-- Code compréhensible rapidement
-- Responsabilités claires
-- Pas de complexité inutile
+- Code quickly understandable
+- Clear responsibilities
+- No unnecessary complexity
 
 ---
 
@@ -168,19 +168,19 @@
 
 ```java
 @GetMapping
-@Operation(summary = "Récupérer tous les livres",
-        description = "Récupère la liste complète des livres")
+@Operation(summary = "Retrieve all books",
+        description = "Retrieves the full list of books")
 @ApiResponses({
         @ApiResponse(responseCode = "200",
-                description = "Liste des livres récupérée avec succès",
+                description = "List of books successfully retrieved",
                 content = @Content(mediaType = "application/json",
                         array = @ArraySchema(schema = @Schema(implementation = Book.class)))),
         @ApiResponse(responseCode = "404",
-                description = "Aucun livre trouvé",
+                description = "No books found",
                 content = @Content(mediaType = "application/json",
                         schema = @Schema(implementation = ProblemDetail.class))),
         @ApiResponse(responseCode = "500",
-                description = "Erreur lors du traitement",
+                description = "Error during processing",
                 content = @Content(mediaType = "application/json",
                         schema = @Schema(implementation = ProblemDetail.class)))
 })

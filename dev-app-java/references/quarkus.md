@@ -11,120 +11,120 @@
 
 ## Testing
 
-- Utiliser `@QuarkusTest` pour les tests d’intégration.
-- Limiter son usage : démarrage du contexte = coût non négligeable.
-- Écrire des **tests unitaires purs** sans Quarkus dès que possible.
-- Utiliser `@QuarkusTestResource` pour gérer les dépendances externes (DB, services).
-- Séparer clairement :
-  - tests rapides (unitaires)
-  - tests avec contexte (intégration)
+- Use `@QuarkusTest` for integration tests.
+- Limit its usage: starting the context has a non-negligible cost.
+- Write **pure unit tests** without Quarkus as much as possible.
+- Use `@QuarkusTestResource` to manage external dependencies (DB, services).
+- Clearly separate:
+  - fast tests (unit)
+  - tests with context (integration)
 
-- Structurer les tests en **Given / When / Then**
-- Tester le comportement, pas l’implémentation
+- Structure tests in **Given / When / Then**
+- Test behavior, not implementation
 
-**Quand agir :**
-- Tests trop lents
-- Couverture faible hors intégration
-- Dépendance excessive au runtime Quarkus
+**When to act:**
+- Tests are too slow
+- Low coverage outside of integration
+- Excessive dependency on the Quarkus runtime
 
 ---
 
 ## Architecture & Layers
 
-- Séparer clairement :
-  - **Resource (API)** → exposition HTTP
-  - **Service** → logique métier
-  - **Repository** → accès aux données
+- Clearly separate:
+  - **Resource (API)** → HTTP exposure
+  - **Service** → business logic
+  - **Repository** → data access
 
-- Les endpoints doivent rester **fins**
-- Toute logique métier doit être dans les services
-- Ne pas faire remonter de logique technique dans le domaine
+- Endpoints should remain **thin**
+- All business logic should be in services
+- Do not let technical logic leak into the domain
 
-- Favoriser des services **cohérents et ciblés**
-- Éviter les classes “fourre-tout”
+- Favor **coherent and targeted** services
+- Avoid "catch-all" classes
 
-**Quand agir :**
-- Logique métier dans les ressources
-- Services trop volumineux ou ambigus
-- Couplage fort entre couches
+**When to act:**
+- Business logic in resources
+- Overly large or ambiguous services
+- Strong coupling between layers
 
 ---
 
 ## Common Patterns
 
 - Injection via `@Inject`
-  - Autoriser les constructeurs pour améliorer la testabilité
+  - Allow constructors to improve testability
 
-- Scopes :
-  - `@ApplicationScoped` pour les services
-  - `@Singleton` si stateless pur
+- Scopes:
+  - `@ApplicationScoped` for services
+  - `@Singleton` if purely stateless
 
-- Utiliser des **DTOs** pour l’exposition externe
-- Mapper explicitement DTO ↔ domaine
+- Use **DTOs** for external exposure
+- Explicitly map DTO ↔ domain
 
-- Préférer la composition à l’héritage
+- Prefer composition over inheritance
 
-- Patterns fréquents :
-  - **Strategy** : variantes métier
-  - **Factory** : instanciation complexe
-  - **Adapter** : intégration externe
+- Common patterns:
+  - **Strategy**: business variants
+  - **Factory**: complex instantiation
+  - **Adapter**: external integration
 
-**Quand agir :**
-- Duplication de logique
-- Couplage fort avec des API externes
-- Difficulté à faire évoluer le code
+**When to act:**
+- Logic duplication
+- Strong coupling with external APIs
+- Difficulty evolving the code
 
 ---
 
 ## API & OpenAPI
 
-- Documenter systématiquement avec OpenAPI :
+- Systematically document with OpenAPI:
   - `@Operation`
   - `@APIResponse`
   - `@Parameter`
 
-- Toujours documenter :
-  - cas nominal
-  - erreurs possibles
+- Always document:
+  - nominal case
+  - possible errors
 
-- Utiliser des objets dédiés pour les réponses (DTO)
-- Ne jamais exposer directement les entités internes
+- Use dedicated objects for responses (DTO)
+- Never directly expose internal entities
 
-- Standardiser les erreurs (ex: `ProblemDetail`)
+- Standardize errors (e.g., `ProblemDetail`)
 
-**Quand agir :**
-- API difficile à comprendre
-- Contrats implicites
-- Documentation absente ou incomplète
+**When to act:**
+- API is difficult to understand
+- Implicit contracts
+- Documentation is missing or incomplete
 
 ---
 
 ## Review Checklist
 
 ### Tests
-- Tests unitaires présents sans démarrage Quarkus
-- Usage de `@QuarkusTest` justifié
-- Cas limites et erreurs couverts
+- Unit tests present without starting Quarkus
+- `@QuarkusTest` usage is justified
+- Edge cases and errors covered
 
 ### Architecture
-- Resource fine, sans logique métier
-- Services bien découpés
-- Accès aux données isolé
+- Thin Resource, no business logic
+- Well-partitioned services
+- Isolated data access
 
 ### Code
-- Nommage explicite
-- Méthodes courtes et lisibles
-- Pas de duplication évidente
+- Explicit naming
+- Short and readable methods
+- No obvious duplication
 
 ### API
-- OpenAPI complet
-- DTO utilisés
-- Erreurs documentées
+- Complete OpenAPI
+- DTOs used
+- Documented errors
 
 ### Global
-- Code compréhensible rapidement
-- Responsabilités claires
-- Pas de complexité inutile
+- Code quickly understandable
+- Clear responsibilities
+- No unnecessary complexity
 
 ---
 
@@ -133,20 +133,20 @@
 ```java
 @GET
 @Path("/greeting")
-@Operation(summary = "Saluer un aventurier",
-        description = "Retourne un message d'accueil de l'aubergiste.")
+@Operation(summary = "Greet an adventurer",
+        description = "Returns a welcome message from the innkeeper.")
 @APIResponse(
         responseCode = "200",
-        description = "Message d'accueil",
+        description = "Welcome message",
         content = @Content(schema = @Schema(implementation = TavernGreetingResponse.class))
 )
 @APIResponse(
         responseCode = "400",
-        description = "Paramètre invalide",
+        description = "Invalid parameter",
         content = @Content(schema = @Schema(implementation = ProblemDetail.class))
 )
 public TavernGreetingResponse greeting(
-        @Parameter(description = "Nom de l'aventurier à saluer", example = "Arthas")
+        @Parameter(description = "Name of the adventurer to greet", example = "Arthas")
         @QueryParam("name") String name
 ) {
     return tavernService.greeting(name);
